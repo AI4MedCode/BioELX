@@ -39,7 +39,14 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Update the directory paths in [constants.py](code/common/constants.py) to match your local setup.
+Datasets and results default to `data/` and `output/` inside the repository (see
+[constants.py](code/common/constants.py)). If they live elsewhere -- on a scratch
+filesystem, for instance -- point these environment variables at them instead:
+
+```bash
+export BIOELX_DATA_DIR=/path/to/data
+export BIOELX_OUTPUT_DIR=/path/to/output
+```
 
 ## Evaluation Datasets
 - XL-BEL: **[sapbert repository](https://github.com/cambridgeltl/sapbert/tree/main/evaluation/xl_bel)**, XL-BEL dataset is in `sapbert/tree/main/evaluation/`
