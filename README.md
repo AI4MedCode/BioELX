@@ -3,21 +3,25 @@
 ## Overview
 BioELX is a two-stage framework for context-aware cross-lingual biomedical entity linking, consisting of a retriever for cross-lingual candidate retrieval and a reranker for context-aware entity disambiguation, without requiring task-specific BEL supervision.
 
-This repository includes code for data processing, retriever training and inference, and reranker inference.
-
 ![BioELX pipeline: a retriever fetches top-k cross-lingual candidates from the KB, then a reranker scores each candidate against the mention in its context.](misc/pipeline.png)
 
 Stage 1 retrieves top-k candidate entities for a mention across languages; stage 2
 extends the mention with its context (`<tgt>...</tgt>`) and reranks those candidates.
 
+---
+This repository includes code for data processing, retriever training and inference, and reranker inference.
 ## Citing
 If you use BioELX in your work, please cite the following paper:
 ```bash
 to do
 ```
 
-## Huggingface Model
+## Huggingface Resources
+Model:
 > **[`bioelx-nlp/bioelx_retriever`](https://huggingface.co/bioelx-nlp/bioelx_retriever)**
+
+Dataset:
+> **[`bioelx-nlp/bioelx_wikidata_pairs`](https://huggingface.co/datasets/bioelx-nlp/bioelx_wikidata_pairs)**
 
 ## Setting up
 Python 3.12

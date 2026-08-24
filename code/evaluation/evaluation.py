@@ -1,12 +1,3 @@
-"""Evaluation helpers extracted from eval_xl_bel notebook.
-
-Provides:
-- `Stats` class for tracking recall/hits
-- `eval_recall_sapbert` and `eval_recall_ranked` functions
-
-This module is intended to be imported into notebooks or scripts.
-"""
-
 from typing import Iterable, Tuple, Dict, Any
 
 
