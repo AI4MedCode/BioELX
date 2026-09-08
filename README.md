@@ -18,8 +18,7 @@ If you use BioELX in your work, please cite the following paper:
                   Corina Dima and
                   Liangyu Zhong and
                   Steffen Staab},
-  title        = {BioELX: Cross-lingual Biomedical Entity Linking via Alias-based Retrieval
-                  and {LLM} Ranking},
+  title        = {{BioELX: Context-Aware Cross-lingual Biomedical Entity Linking without Task-Specific Supervision}},
   journal      = {EMNLP 2026 Findings},
   volume       = {abs/2605.27380},
   year         = {2026},
