@@ -10,25 +10,32 @@ extends the mention with its context (`<tgt>...</tgt>`) and reranks those candid
 
 ---
 This repository includes code for data processing, retriever training and inference, and reranker inference.
+
+## Updates
+- **Updated paper on [arXiv](https://arxiv.org/abs/2605.27380): EMEA, Patent and WikiMed-DE are now evaluated against the full UMLS 2020AA release.** The original EMNLP 2026 Findings version used the Level-0 subset of UMLS 2020AA as the knowledge base for these benchmarks. With the full release, BioELX improves over the originally reported numbers on all three benchmarks (see [All version comparison](#all-version-comparison)). XL-BEL and MedMentions results are unchanged.
+- We build two versions of the full UMLS 2020AA knowledge base, a lowercased one (main results) and a case-preserving one (Appendix F.2 of the updated paper). See [process_kbs](code/process_kbs/README.md) for how they are built and their sizes.
 ## Citing
 If you use BioELX in your work, please cite the following paper:
 ```bash
-@article{DBLP:journals/corr/abs-2605-27380,
-  author       = {Yi Wang and
-                  Corina Dima and
-                  Liangyu Zhong and
-                  Steffen Staab},
-  title        = {{BioELX: Context-Aware Cross-lingual Biomedical Entity Linking without Task-Specific Supervision}},
-  journal      = {EMNLP 2026 Findings},
-  volume       = {abs/2605.27380},
-  year         = {2026},
-  url          = {https://doi.org/10.48550/arXiv.2605.27380},
-  doi          = {10.48550/ARXIV.2605.27380},
-  eprinttype   = {arXiv},
-  eprint       = {2605.27380},
-  timestamp    = {Mon, 15 Jun 2026 06:25:34 +0200},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2605-27380.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{wang-etal-2026-bioelx,
+    title = "{B}io{ELX}: Context-Aware Cross-lingual Biomedical Entity Linking without Task-Specific Supervision",
+    author = "Wang, Yi  and
+      Dima, Corina  and
+      Zhong, Liangyu  and
+      Staab, Steffen",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-emnlp.1109/",
+    doi = "10.18653/2026.findings-emnlp.1109",
+    pages = "23462--23488",
+    ISBN = "979-8-89176-462-0"
 }
 ```
 
@@ -38,6 +45,7 @@ Model:
 
 Dataset:
 > **[`bioelx-nlp/bioelx_wikidata_pairs`](https://huggingface.co/datasets/bioelx-nlp/bioelx_wikidata_pairs)**
+
 
 ## Setting up
 Python 3.12
@@ -112,11 +120,11 @@ python code/preprocessing/to_xl_bel_format.py --dataset wikimed-de --splits test
 
 ## Training Dataset
 
-- Followin the instruction in [Wikidata README](wikidata/README.md) to obtain the training data `training_file_wikidata2025_uncased_no_dup_pairwise_pair_th.txt`
+- Followin the instruction in [Wikidata README](code/wikidata/README.md) to obtain the training data `training_file_wikidata2025_uncased_no_dup_pairwise_pair_th.txt`
 
 ## Knowledge Bases
 
-follow the instructions in [process_kbs](process_kbs/README.md)
+Follow the instructions in [process_kbs](code/process_kbs/README.md). For EMEA, Patent and WikiMed-DE, the main results use the lowercased full UMLS 2020AA release (`--lowercase --dedup`).
 
 ## Train Retriever
 > Only needed if you want to retrain. To just run the pipeline, use our released checkpoint — see [Run Retrieval](#run-retrieval).
@@ -206,5 +214,54 @@ python /code/qwen_inference.py \
   --cuda cuda:0
 ```
 
+> **Notes:** `--top_k` is the number of retrieved candidates to rerank. In our experiments, we use `--top_k 64` for XL-BEL and `--top_k 16` for EMEA, Patent and WikiMed-DE (UMLS 2020AA).
+
 ## Evaluation
 See [evaluation example](./code/evaluation/eval_example.ipynb)
+
+## Results
+All numbers are R@1 (%). For BioELX, we report the mean over three random seeds. The released checkpoint [`bioelx-nlp/bioelx_retriever`](https://huggingface.co/bioelx-nlp/bioelx_retriever) is one of them. BioELX reranks the top-**64** retrieved candidates on XL-BEL and the top-**16** on EMEA, Patent and WikiMed-DE (UMLS 2020AA) with Qwen3-Reranker-8B. Best results are in **bold**. For full result, please check Table 1 and Table 2 in our *[updated paper](https://arxiv.org/pdf/2605.27380)*. 
+
+Below are the results for EMEA, Patent and WikiMed-DE using different version of UMLS knowledge bases. 
+
+### UMLS 2020 AA L0 Subset
+This version corresponds to the results reported in the *[original version of our paper](https://aclanthology.org/2026.findings-emnlp.1109.pdf)*. 
+
+| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE | WikiMed-DE DE-wiki |
+|---|---|---|---|---|---|---|---|---|---|---|
+| BERGAMOT | 60.2† | 58.2† | 54.4† | 53.9† | 56.7† | 68.7† | 68.4† | 68.6† | 51.0† | 77.2† |
+| SapBERT-de | 56.5† | 53.4† | 52.5† | 57.7† | 55.0† | 65.5† | 67.2† | 66.4† | 51.3† | **80.0** |
+| BioELX retriever | 60.0 | 55.9 | 56.2 | 55.8 | 57.1 | 67.0 | 68.9 | 68.0 | 57.0 | 78.1 |
+| BioELX retriever + reranker | **65.4** | **61.9** | **59.9** | **62.7** | **62.5** | **75.4** | **71.4** | **73.4** | **63.0** | 79.8 |
+
+### Full UMLS 2020 AA (Lowercase version)
+Main results of the updated paper. `DE` uses UMLS 2020AA as the knowledge base. † marks results reproduced by us.
+
+| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE | WikiMed-DE DE-wiki |
+|---|---|---|---|---|---|---|---|---|---|---|
+| BERGAMOT | 65.7† | 61.0† | 59.4† | 58.8† | 61.2† | 71.9† | 62.6† | 67.3† | 53.4† | 77.2† |
+| SapBERT-de | 63.9† | 58.9† | 58.8† | 59.1† | 60.2† | 71.9† | 63.2† | 67.6† | 57.2† | **80.0** |
+| BioELX retriever | 63.3 | 60.6 | 60.0 | 60.2 | 61.1 | 73.0 | 67.2 | 70.1 | 63.9 | 78.1 |
+| BioELX retriever + reranker | **68.9** | **65.4** | **65.6** | **64.6** | **66.1** | **78.8** | **74.2** | **76.5** | **67.0** | 79.8 |
+
+### Full UMLS 2020 AA (Case-preserving)
+Appendix F.2 of the updated paper. All numbers are obtained by us under the same evaluation protocol.
+
+| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE |
+|---|---|---|---|---|---|---|---|---|---|
+| BERGAMOT | 65.7† | 59.9† | 59.0† | 63.5† | 62.0† | 69.3† | 66.7† | 68.0† | 59.3† |
+| SapBERT-de | 65.0† | 60.3† | 60.6† | 64.9† | 62.7† | 67.0† | 66.7† | 66.8† | 61.0† |
+| BioELX retriever | 63.9 | 61.6 | 60.1 | 63.8 | 62.4 | 70.9 | 68.2 | 69.5 | 64.4 |
+| BioELX retriever + reranker | **66.0** | **63.9** | **63.7** | **66.2** | **64.9** | **77.0** | **73.5** | **75.2** | **67.6** |
+
+### All version comparison
+BioELX on the three versions of UMLS 2020AA: the Level-0 subset (original EMNLP 2026 Findings version), the lowercased full release (main results of the updated paper) and the case-preserving full release (Appendix F.2 of the updated paper). Best results in each column are in **bold**.
+
+| BioELX | KB | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Retriever | Level-0 subset | 60.0 | 55.9 | 56.2 | 55.8 | 57.1 | 67.0 | 68.9 | 68.0 | 57.0 |
+| Retriever | Full release, lowercased | 63.3 | 60.6 | 60.0 | 60.2 | 61.1 | 73.0 | 67.2 | 70.1 | 63.9 |
+| Retriever | Full release, case-preserving | 63.9 | 61.6 | 60.1 | 63.8 | 62.4 | 70.9 | 68.2 | 69.5 | 64.4 |
+| Retriever + reranker | Level-0 subset | 65.4 | 61.9 | 59.9 | 62.7 | 62.5 | 75.4 | 71.4 | 73.4 | 63.0 |
+| Retriever + reranker | Full release, lowercased | **68.9** | **65.4** | **65.6** | 64.6 | **66.1** | **78.8** | **74.2** | **76.5** | 67.0 |
+| Retriever + reranker | Full release, case-preserving | 66.0 | 63.9 | 63.7 | **66.2** | 64.9 | 77.0 | 73.5 | 75.2 | **67.6** |
