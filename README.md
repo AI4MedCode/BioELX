@@ -227,22 +227,22 @@ Below are the results for EMEA, Patent and WikiMed-DE using different version of
 ### UMLS 2020 AA L0 Subset
 This version corresponds to the results reported in the *[original version of our paper](https://aclanthology.org/2026.findings-emnlp.1109.pdf)*. 
 
-| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE | WikiMed-DE DE-wiki |
-|---|---|---|---|---|---|---|---|---|---|---|
-| BERGAMOT | 60.2† | 58.2† | 54.4† | 53.9† | 56.7† | 68.7† | 68.4† | 68.6† | 51.0† | 77.2† |
-| SapBERT-de | 56.5† | 53.4† | 52.5† | 57.7† | 55.0† | 65.5† | 67.2† | 66.4† | 51.3† | **80.0** |
-| BioELX retriever | 60.0 | 55.9 | 56.2 | 55.8 | 57.1 | 67.0 | 68.9 | 68.0 | 57.0 | 78.1 |
-| BioELX retriever + reranker | **65.4** | **61.9** | **59.9** | **62.7** | **62.5** | **75.4** | **71.4** | **73.4** | **63.0** | 79.8 |
+| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE |
+|---|---|---|---|---|---|---|---|---|---|
+| BERGAMOT | 60.2† | 58.2† | 54.4† | 53.9† | 56.7† | 68.7† | 68.4† | 68.6† | 51.0† |
+| SapBERT-de | 56.5† | 53.4† | 52.5† | 57.7† | 55.0† | 65.5† | 67.2† | 66.4† | 51.3† |
+| BioELX retriever | 60.0 | 55.9 | 56.2 | 55.8 | 57.1 | 67.0 | 68.9 | 68.0 | 57.0 |
+| BioELX retriever + reranker | **65.4** | **61.9** | **59.9** | **62.7** | **62.5** | **75.4** | **71.4** | **73.4** | **63.0** |
 
 ### Full UMLS 2020 AA (Lowercase version)
 Main results of the updated paper. `DE` uses UMLS 2020AA as the knowledge base. † marks results reproduced by us.
 
-| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE | WikiMed-DE DE-wiki |
-|---|---|---|---|---|---|---|---|---|---|---|
-| BERGAMOT | 65.7† | 61.0† | 59.4† | 58.8† | 61.2† | 71.9† | 62.6† | 67.3† | 53.4† | 77.2† |
-| SapBERT-de | 63.9† | 58.9† | 58.8† | 59.1† | 60.2† | 71.9† | 63.2† | 67.6† | 57.2† | **80.0** |
-| BioELX retriever | 63.3 | 60.6 | 60.0 | 60.2 | 61.1 | 73.0 | 67.2 | 70.1 | 63.9 | 78.1 |
-| BioELX retriever + reranker | **68.9** | **65.4** | **65.6** | **64.6** | **66.1** | **78.8** | **74.2** | **76.5** | **67.0** | 79.8 |
+| Method | EMEA ES | EMEA FR | EMEA NL | EMEA DE | EMEA Avg | Patent FR | Patent DE | Patent Avg | WikiMed-DE DE |
+|---|---|---|---|---|---|---|---|---|---|
+| BERGAMOT | 65.7† | 61.0† | 59.4† | 58.8† | 61.2† | 71.9† | 62.6† | 67.3† | 53.4† |
+| SapBERT-de | 63.9† | 58.9† | 58.8† | 59.1† | 60.2† | 71.9† | 63.2† | 67.6† | 57.2† |
+| BioELX retriever | 63.3 | 60.6 | 60.0 | 60.2 | 61.1 | 73.0 | 67.2 | 70.1 | 63.9 |
+| BioELX retriever + reranker | **68.9** | **65.4** | **65.6** | **64.6** | **66.1** | **78.8** | **74.2** | **76.5** | **67.0** |
 
 ### Full UMLS 2020 AA (Case-preserving)
 Appendix F.2 of the updated paper. All numbers are obtained by us under the same evaluation protocol.
