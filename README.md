@@ -12,8 +12,8 @@ extends the mention with its context (`<tgt>...</tgt>`) and reranks those candid
 This repository includes code for data processing, retriever training and inference, and reranker inference.
 
 ## Updates
-- **Updated paper on [arXiv](https://arxiv.org/abs/2605.27380): EMEA, Patent and WikiMed-DE are now evaluated against the full UMLS 2020AA release.** The original EMNLP 2026 Findings version used the Level-0 subset of UMLS 2020AA as the knowledge base for these benchmarks. With the full release, BioELX improves over the originally reported numbers on all three benchmarks (see [All version comparison](#all-version-comparison)). XL-BEL and MedMentions results are unchanged.
-- We build two versions of the full UMLS 2020AA knowledge base, a lowercased one (main results) and a case-preserving one (Appendix F.2 of the updated paper). See [process_kbs](code/process_kbs/README.md) for how they are built and their sizes.
+- We updated our paper on [arXiv](https://arxiv.org/abs/2605.27380) for better reproducibility. EMEA, Patent and WikiMed-DE are now evaluated on the full UMLS 2020AA knowledge base, which gives better results than originally reported (see [All version comparison](#all-version-comparison)). We thank Zui Tao (Beijing Information Science and Technology University) for pointing out the knowledge base version issue.
+
 ## Citing
 If you use BioELX in your work, please cite the following paper:
 ```bash
