@@ -12,7 +12,7 @@ extends the mention with its context (`<tgt>...</tgt>`) and reranks those candid
 This repository includes code for data processing, retriever training and inference, and reranker inference.
 
 ## Updates
-- We updated our paper on [arXiv](https://arxiv.org/abs/2605.27380) for better reproducibility. EMEA, Patent and WikiMed-DE are now evaluated on the full UMLS 2020AA knowledge base, which gives better results than originally reported (see [All version comparison](#all-version-comparison)). We thank Zui Tao (Beijing Information Science and Technology University) for pointing out the knowledge base version issue.
+- We updated our paper on [arXiv](https://arxiv.org/pdf/2605.27380v3) for better reproducibility. EMEA, Patent and WikiMed-DE are now evaluated on the full UMLS 2020AA knowledge base, which gives better results than originally reported (see [All version comparison](#all-version-comparison)). We thank Zui Tao (Beijing Information Science and Technology University) for pointing out the knowledge base version issue.
 
 ## Citing
 If you use BioELX in your work, please cite the following paper:
@@ -220,7 +220,7 @@ python /code/qwen_inference.py \
 See [evaluation example](./code/evaluation/eval_example.ipynb)
 
 ## Results
-All numbers are R@1 (%). For BioELX, we report the mean over three random seeds. The released checkpoint [`bioelx-nlp/bioelx_retriever`](https://huggingface.co/bioelx-nlp/bioelx_retriever) is one of them. BioELX reranks the top-**64** retrieved candidates on XL-BEL and the top-**16** on EMEA, Patent and WikiMed-DE (UMLS 2020AA) with Qwen3-Reranker-8B. Best results are in **bold**. For full result, please check Table 1 and Table 2 in our *[updated paper](https://arxiv.org/pdf/2605.27380)*. 
+All numbers are R@1 (%). For BioELX, we report the mean over three random seeds. The released checkpoint [`bioelx-nlp/bioelx_retriever`](https://huggingface.co/bioelx-nlp/bioelx_retriever) is one of them. BioELX reranks the top-**64** retrieved candidates on XL-BEL and the top-**16** on EMEA, Patent and WikiMed-DE (UMLS 2020AA) with Qwen3-Reranker-8B. Best results are in **bold**. For full result, please check Table 1 and Table 2 in our *[updated paper](https://arxiv.org/pdf/2605.27380v3)*. 
 
 Below are the results for EMEA, Patent and WikiMed-DE using different version of UMLS knowledge bases. 
 
