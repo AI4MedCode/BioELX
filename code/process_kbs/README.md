@@ -47,8 +47,8 @@ For UMLS 2020, we reported several versions of results in the [main README](../.
 | Full UMLS 2020AA, case-preserving | ≈ 1.97 GB, 15,479,756 rows | `--dedup` | 681,039,196 bytes ≈ 681 MB | 13,080,061 | 4,281,184 |
 
 - **Level-0 subset:** used in the [original EMNLP 2026 Findings paper](https://aclanthology.org/2026.findings-emnlp.1109.pdf). The updated paper still uses it for the reranker ablations on EMEA and Patent.
-- **Full release, lowercased:** used for the main results of the [updated paper](https://arxiv.org/abs/2605.27380). Several baseline numbers in our main table are taken from Con2GEN (Zhu et al., EMNLP 2023), whose reported UMLS 2020AA knowledge base has 12,671,936 names, exactly the size of this version.
-- **Full release, case-preserving:** results are in Appendix F.2 of the [updated paper](https://arxiv.org/abs/2605.27380).
+- **Full release, lowercased:** used for the main results of the [updated paper](https://arxiv.org/pdf/2605.27380v3). Several baseline numbers in our main table are taken from Con2GEN (Zhu et al., EMNLP 2023), whose reported UMLS 2020AA knowledge base has 12,671,936 names, exactly the size of this version.
+- **Full release, case-preserving:** results are in Appendix F.2 of the [updated paper](https://arxiv.org/pdf/2605.27380v3).
 
 ## UMLS-Wikidata
 Download **[UMLS-Wikidata](https://zenodo.org/records/11003203)** and save it to `data/umls_wikidata`. We use this knowledge base to evaluate WikiMed-DE under the UMLS-Wikidata setting (`DE-wiki`).
